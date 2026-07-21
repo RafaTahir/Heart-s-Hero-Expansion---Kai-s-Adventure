@@ -209,6 +209,52 @@ Rafa established and approved:
 - Setup selections are intentionally not persistent until the engine phase.
 - Next allowed work: portable quest types, validation, selection, reducer, storage, migrations, and content packs.
 
+## Phase 3 — Portable local quest engine
+
+**Date:** 2026-07-22
+**Status:** Verified; primary commit pending
+
+### Work completed
+
+- Added the stable public types and injected `StorageAdapter`, `QuestSource`, `VirtueLexicon`, and configurable route props.
+- Added three structured TypeScript quest packs with default English text variants, stable IDs, missions, prompts, transformations, and rewards.
+- Added Zod graph/progress validation, deterministic challenge-aware selection, a pure progression reducer, local adapter, version-zero migration, corrupt backup, and scoped reset.
+- Connected setup to deterministic quest selection and persisted progress.
+
+### Human decisions
+
+- Courage-first availability, shared Quick/Three-Day graph, and the approved challenge-to-virtue mapping remain unchanged.
+
+### Codex work
+
+- Implemented and tested the portable engine independently of scene rendering.
+
+### Verification
+
+- `npm run typecheck`: pass.
+- `npm run lint`: pass.
+- `npm run test`: pass, 5 tests including graph validation, deterministic selection, idempotence, migration, corruption recovery, and scoped reset.
+- `npm run test:e2e`: pass.
+- `npm run build`: pass.
+
+### Commits
+
+- Primary commit SHA: pending.
+- SHA-record commit SHA: reported to Rafa; not recursively recorded.
+
+### Deployment
+
+- Static architecture remains free of environment variables and backend services.
+
+### Evidence
+
+- Engine unit tests and production bundle are the phase evidence.
+
+### Known issues and next allowed work
+
+- Quest routes still use the visual placeholder by design.
+- Next allowed work: render the complete Courage loop, transformation, reward, collection, reflection, and reset.
+
 ## Phase entry template
 
 Copy this section for every later phase.

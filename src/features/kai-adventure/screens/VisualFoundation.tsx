@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { KaiWorldArt } from "../art/KaiWorldArt";
 import { SceneFrame } from "../components/SceneFrame";
+import { useAdventure } from "../engine/AdventureContext";
+import { selectQuest } from "../engine/selectQuest";
+import type { AgeBand, ChallengeId, JourneyLength, RegionId } from "../engine/types";
 
 export function OpeningScreen() {
   return (
@@ -23,16 +26,24 @@ const ageChoices = [
   { value: "10-11", label: "Ages 10–11" },
 ] as const;
 
-const challengeChoices = ["Feeling worried", "Building confidence", "Sharing with others", "Helping someone", "Giving up", "Feeling frustrated"] as const;
+const challengeChoices = [
+  { value: "fear", label: "Feeling worried" },
+  { value: "confidence", label: "Building confidence" },
+  { value: "sharing", label: "Sharing with others" },
+  { value: "helping", label: "Helping someone" },
+  { value: "giving-up", label: "Giving up" },
+  { value: "frustration", label: "Feeling frustrated" },
+] as const;
 
 export function SetupScreen() {
   const navigate = useNavigate();
+  const { dispatch, questSource } = useAdventure();
   const [age, setAge] = useState("");
   const [challenge, setChallenge] = useState("");
   const [length, setLength] = useState("");
   const [error, setError] = useState("");
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const missing = !age ? "Choose an age band." : !challenge ? "Choose what feels useful right now." : !length ? "Choose a journey length." : "";
     if (missing) {
@@ -40,6 +51,14 @@ export function SetupScreen() {
       document.querySelector<HTMLElement>("fieldset:has(input:not(:checked)) legend")?.focus();
       return;
     }
+    const setup = { ageBand: age as AgeBand, challengeId: challenge as ChallengeId, journeyLength: length as JourneyLength };
+    const packs = await questSource.list();
+    const regions: RegionId[] = ["mountain-of-echoes", "whispering-woods", "bridge-of-falling-stars"];
+    const selectedQuestIds = Object.fromEntries(regions.flatMap((regionId) => {
+      const selected = selectQuest(packs, regionId, setup.challengeId);
+      return selected ? [[regionId, selected.id]] : [];
+    }));
+    dispatch({ type: "setup-saved", setup, selectedQuestIds });
     navigate("/map");
   }
 
@@ -50,9 +69,9 @@ export function SetupScreen() {
         <p className="kai-eyebrow">Grown-up setup · about one minute</p>
         <h1 id="setup-heading">Set the first trail</h1>
         <p>Choose what fits today. Nothing here is a test, and there are no timers.</p>
-        <form onSubmit={submit} noValidate>
+        <form onSubmit={(event) => void submit(event)} noValidate>
           <ChoiceGroup legend="How old is your explorer?" name="age" value={age} onChange={setAge} choices={ageChoices} />
-          <ChoiceGroup legend="What would help today?" name="challenge" value={challenge} onChange={setChallenge} choices={challengeChoices.map((label) => ({ label, value: label.toLowerCase().replaceAll(" ", "-") }))} columns />
+          <ChoiceGroup legend="What would help today?" name="challenge" value={challenge} onChange={setChallenge} choices={challengeChoices} columns />
           <ChoiceGroup legend="Choose the pace" name="length" value={length} onChange={setLength} choices={[{ value: "quick", label: "Quick Quest" }, { value: "three-day", label: "Three-Day Adventure" }]} />
           {error ? <p className="kai-form-error" role="alert">{error}</p> : null}
           <button className="kai-button kai-button--primary" type="submit">Hand to Child <ChevronRight aria-hidden="true" /></button>
