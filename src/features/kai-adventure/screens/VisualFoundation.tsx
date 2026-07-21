@@ -5,7 +5,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { KaiWorldArt } from "../art/KaiWorldArt";
 import { SceneFrame } from "../components/SceneFrame";
 import { useAdventure } from "../engine/AdventureContext";
-import { selectQuest } from "../engine/selectQuest";
+import { challengeRecommendation, selectQuest } from "../engine/selectQuest";
 import type { AgeBand, ChallengeId, JourneyLength, RegionId } from "../engine/types";
 
 export function OpeningScreen() {
@@ -113,6 +113,7 @@ export function MapScreen() {
   if (!ready) return <main className="kai-loading" aria-live="polite"><Compass aria-hidden="true" /><p>Finding your trail…</p></main>;
   if (!progress.setup) return <Navigate to="/setup" replace />;
   const courageRestored = progress.restoredRegionIds.includes("mountain-of-echoes");
+  const suggestedVirtue = challengeRecommendation[progress.setup.challengeId];
   const regions = [
     { id: "mountain-of-echoes" as const, name: "Mountain of Echoes", virtue: "courage" as const, icon: Compass },
     { id: "whispering-woods" as const, name: "Whispering Woods", virtue: "kindness" as const, icon: Trees },
@@ -133,7 +134,8 @@ export function MapScreen() {
           const missionAccepted = questId ? progress.missions[questId]?.status === "accepted" : false;
           const active = progress.activeRun?.questId === questId ? progress.activeRun : null;
           const destination = restored ? `/reward/${region.id}` : missionAccepted ? `/mission/${region.id}` : active ? `/quest/${region.id}/${active.sceneId}` : `/quest/${region.id}/arrival`;
-          const status = restored ? "Restored · inspect region" : missionAccepted ? "Mission accepted · return" : sleeping ? "Sleeping · restore Courage first" : "Enter region";
+          const suggested = courageRestored && !restored && region.virtue === suggestedVirtue && region.virtue !== "courage";
+          const status = restored ? "Restored · inspect region" : missionAccepted ? "Mission accepted · return" : sleeping ? "Sleeping · restore Courage first" : suggested ? "Suggested next · enter region" : "Enter region";
           const Icon = region.icon;
           if (sleeping) return <button className="kai-region kai-region--sleeping" type="button" disabled key={region.id}><Icon aria-hidden="true" /><span><strong>{region.name}</strong><small>{status}</small></span><LockKeyhole aria-hidden="true" /></button>;
           return <Link className={`kai-region kai-region--${region.virtue} ${restored ? "is-restored" : ""}`} to={destination} key={region.id}><Icon aria-hidden="true" /><span><strong>{region.name}</strong><small>{virtueLexicon.label(region.virtue)} · {status}</small></span>{restored ? <Check aria-hidden="true" /> : <ChevronRight aria-hidden="true" />}</Link>;

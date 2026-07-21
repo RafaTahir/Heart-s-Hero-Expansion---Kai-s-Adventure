@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("completes and resumes the Courage journey", async ({ page }) => {
+test("completes Courage with a reload, then restores all three regions", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("link", { name: /begin adventure/i }).click();
   await page.getByRole("radio", { name: "Ages 8–9" }).check();
@@ -34,4 +34,30 @@ test("completes and resumes the Courage journey", async ({ page }) => {
   await page.getByRole("link", { name: /back to map/i }).click();
   await expect(page.getByRole("link", { name: /whispering woods/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /bridge of falling stars/i })).toBeVisible();
+
+  await page.getByRole("link", { name: /whispering woods/i }).click();
+  await page.getByRole("button", { name: /step closer/i }).click();
+  await page.getByRole("button", { name: /share the lantern/i }).click();
+  await expect(page.getByRole("heading", { name: /pass the light/i })).toBeVisible();
+  await page.getByRole("button", { name: "I'll do it" }).click();
+  await page.getByRole("button", { name: /i did it/i }).click();
+  await page.getByRole("button", { name: /skip animation/i }).click();
+  await page.getByRole("button", { name: /see reward/i }).click();
+  await page.getByRole("button", { name: /add to collection/i }).click();
+  await page.getByRole("link", { name: /back to map/i }).click();
+
+  await page.getByRole("link", { name: /bridge of falling stars/i }).click();
+  await page.getByRole("button", { name: /step closer/i }).click();
+  await page.getByRole("button", { name: /pause and breathe/i }).click();
+  await expect(page.getByRole("heading", { name: /try once more/i })).toBeVisible();
+  await page.getByRole("button", { name: "I'll do it" }).click();
+  await page.getByRole("button", { name: /i did it/i }).click();
+  await page.getByRole("button", { name: /skip animation/i }).click();
+  await page.getByRole("button", { name: /see reward/i }).click();
+  await page.getByRole("button", { name: /add to collection/i }).click();
+  await page.getByRole("link", { name: /view collection/i }).click();
+
+  await expect(page.getByRole("heading", { name: /courage compass/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /kindness lantern/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /steady star/i })).toBeVisible();
 });

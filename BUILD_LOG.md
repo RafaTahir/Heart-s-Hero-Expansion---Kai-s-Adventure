@@ -301,6 +301,50 @@ Rafa established and approved:
 - Kindness and Perseverance use the shared content/rendering foundation but require region-specific transformation treatment and completion verification.
 - Next allowed work: finish and verify both remaining regions.
 
+## Phase 5 — Kindness and Perseverance regions
+
+**Date:** 2026-07-22
+**Status:** Verified; primary commit pending
+
+### Work completed
+
+- Completed the Whispering Woods and Bridge of Falling Stars story, mission, transformation, reward, and collection paths.
+- Added region-specific restoration beats, lantern-flower and star-stone visual treatments, reward symbols, and challenge-aware “Suggested next” map guidance.
+- Verified Courage unlocks both regions and all three collectibles persist together.
+
+### Human decisions
+
+- No virtues, regions, scoring, narration, accounts, or new branches were added.
+
+### Codex work
+
+- Extended the established engine/rendering language without changing quest IDs or progression rules.
+
+### Verification
+
+- `npm run typecheck`: pass.
+- `npm run lint`: pass.
+- `npm run test`: pass, 5 tests.
+- `npm run test:e2e`: pass; all three regions restored and all three named rewards visible.
+- `npm run build`: pass.
+
+### Commits
+
+- Primary commit SHA: pending.
+- SHA-record commit SHA: reported to Rafa; not recursively recorded.
+
+### Deployment
+
+- Production output verified; public deployment remains blocked only by absent Vercel authentication/project link.
+
+### Evidence
+
+- One browser run proves Courage reload safety, both unlocks, two additional loops, and the complete collection.
+
+### Known issues and next allowed work
+
+- Remaining work is hardening only: accessibility automation, keyboard/focus checks, responsive evidence, route refresh matrix, error messaging, and bundle polish.
+
 ## Phase entry template
 
 Copy this section for every later phase.

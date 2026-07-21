@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, Check, ChevronRight, Compass, Gem, RotateCcw, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, ChevronRight, Compass, Gem, Lamp, RotateCcw, Sparkles, Star } from "lucide-react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
 import { questPacks } from "../content/questPacks";
@@ -116,7 +116,11 @@ export function MissionScreen() {
   );
 }
 
-const courageBeats = ["Pip draws a light trail.", "The echoes soften.", "Storm clouds separate.", "Crystals answer the sunrise.", "Kai's compass awakens.", "The Courage Compass appears."];
+const transformationBeats: Record<RegionId, string[]> = {
+  "mountain-of-echoes": ["Pip draws a light trail.", "The echoes soften.", "Storm clouds separate.", "Crystals answer the sunrise.", "Kai's compass awakens.", "The Courage Compass appears."],
+  "whispering-woods": ["Pip carries light between friends.", "Tangled roots uncurl.", "Little paths reconnect.", "Lantern flowers bloom.", "The creatures gather close.", "The Kindness Lantern appears."],
+  "bridge-of-falling-stars": ["Pip steadies the first stone.", "The next stone settles.", "A patient rhythm forms.", "Star fragments rise.", "The night path brightens.", "The Steady Star appears."],
+};
 
 export function TransformationScreen() {
   const { regionId } = useParams();
@@ -163,7 +167,7 @@ export function TransformationScreen() {
       <section className="kai-transform-copy">
         <p className="kai-eyebrow">The world is changing</p>
         <h1 id="transform-heading">{phase === 6 ? `${regionNames[regionId]} restored` : readText(transformation.title)}</h1>
-        <p className="kai-caption">{regionId === "mountain-of-echoes" ? courageBeats[Math.min(phase, 5)] : readText(transformation.body)}</p>
+        <p className="kai-caption">{transformationBeats[regionId][Math.min(phase, 5)]}</p>
         <div className="kai-actions">
           {phase < 6 ? <button className="kai-button kai-button--quiet" type="button" onClick={skip}>Skip animation</button> : <button className="kai-button kai-button--primary" type="button" onClick={() => navigate(`/reward/${regionId}`)}>See reward <ChevronRight aria-hidden="true" /></button>}
         </div>
@@ -253,11 +257,13 @@ function MissionArt({ regionId }: { regionId: RegionId }) {
 }
 
 function TransformationArt({ regionId, phase }: { regionId: RegionId; phase: number }) {
-  return <div className="kai-transform-art" aria-hidden="true"><QuestArt regionId={regionId} restored={phase === 6} /><div className="kai-light-trail" /><div className="kai-echo-rings" /><div className="kai-sunrise-disc" /><div className="kai-crystal-field"><i /><i /><i /><i /></div><div className="kai-compass-awake"><Compass /></div><div className="kai-reward-reveal"><Gem /></div></div>;
+  const RewardIcon = regionId === "mountain-of-echoes" ? Compass : regionId === "whispering-woods" ? Lamp : Star;
+  return <div className="kai-transform-art" aria-hidden="true"><QuestArt regionId={regionId} restored={phase === 6} /><div className="kai-light-trail" /><div className="kai-echo-rings" /><div className="kai-sunrise-disc" /><div className="kai-crystal-field"><i /><i /><i /><i /></div><div className="kai-compass-awake"><Sparkles /></div><div className="kai-reward-reveal"><RewardIcon /></div></div>;
 }
 
 function RewardArt({ regionId }: { regionId: RegionId }) {
-  return <div className="kai-reward-art"><QuestArt regionId={regionId} restored /><Gem aria-hidden="true" /></div>;
+  const RewardIcon = regionId === "mountain-of-echoes" ? Compass : regionId === "whispering-woods" ? Lamp : Star;
+  return <div className="kai-reward-art"><QuestArt regionId={regionId} restored /><RewardIcon aria-hidden="true" /></div>;
 }
 
 function CollectionArt() {
