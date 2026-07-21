@@ -255,6 +255,52 @@ Rafa established and approved:
 - Quest routes still use the visual placeholder by design.
 - Next allowed work: render the complete Courage loop, transformation, reward, collection, reflection, and reset.
 
+## Phase 4 — Complete Courage adventure journey
+
+**Date:** 2026-07-22
+**Status:** Verified; primary commit pending
+
+### Work completed
+
+- Implemented opening/setup/map → Mountain story choices → persisted mission acceptance/return → completion → six-beat transformation → reward → collection → grown-up reflection/reset.
+- Added Courage-first route guards, sleeping/unlocked/restored map states, Quick/Three-Day framing, idempotent reward collection, and inspectable restored regions.
+- Added a visible transformation skip and immediate reduced-motion completion with a single restoration announcement.
+
+### Human decisions
+
+- The demonstration may complete a mission immediately; no timer or proof mechanism was added.
+
+### Codex work
+
+- Built the complete vertical slice and fixed a choice-reaction state leak found by the browser journey.
+
+### Verification
+
+- `npm run typecheck`: pass.
+- `npm run lint`: pass.
+- `npm run test`: pass, 5 tests.
+- `npm run test:e2e`: pass; full Courage journey, mission reload, restored unlocks, and collectible flow.
+- `npm run build`: pass.
+
+### Commits
+
+- Primary commit SHA: pending.
+- SHA-record commit SHA: reported to Rafa; not recursively recorded.
+
+### Deployment
+
+- Production bundle is the first valid recordable demo build.
+- Public URL: pending authenticated Vercel access.
+
+### Evidence
+
+- Playwright records the complete demo path including a reload after mission acceptance.
+
+### Known issues and next allowed work
+
+- Kindness and Perseverance use the shared content/rendering foundation but require region-specific transformation treatment and completion verification.
+- Next allowed work: finish and verify both remaining regions.
+
 ## Phase entry template
 
 Copy this section for every later phase.

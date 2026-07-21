@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { BookOpen, Check, ChevronRight, Compass, LockKeyhole, Sparkles, Star, Trees } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import { KaiWorldArt } from "../art/KaiWorldArt";
 import { SceneFrame } from "../components/SceneFrame";
@@ -9,12 +9,13 @@ import { selectQuest } from "../engine/selectQuest";
 import type { AgeBand, ChallengeId, JourneyLength, RegionId } from "../engine/types";
 
 export function OpeningScreen() {
+  const { progress, ready } = useAdventure();
   return (
     <SceneFrame title="Kai's world is losing its light." eyebrow="A Heart Hero Expansion" art={<KaiWorldArt />}>
       <p className="kai-caption">Help restore it, one brave act at a time.</p>
       <div className="kai-actions">
-        <Link className="kai-button kai-button--primary" to="/setup">Begin Adventure <ChevronRight aria-hidden="true" /></Link>
-        <Link className="kai-button kai-button--quiet" to="/grown-up">Grown-up</Link>
+        <Link className="kai-button kai-button--primary" to={progress.setup ? "/map" : "/setup"}>{ready ? "Begin Adventure" : "Finding your trail…"} <ChevronRight aria-hidden="true" /></Link>
+        {progress.setup ? <Link className="kai-button kai-button--quiet" to="/grown-up">Grown-up</Link> : null}
       </div>
     </SceneFrame>
   );
@@ -108,23 +109,35 @@ function ChoiceGroup({ legend, name, value, onChange, choices, columns }: Choice
 }
 
 export function MapScreen() {
+  const { progress, ready, virtueLexicon } = useAdventure();
+  if (!ready) return <main className="kai-loading" aria-live="polite"><Compass aria-hidden="true" /><p>Finding your trail…</p></main>;
+  if (!progress.setup) return <Navigate to="/setup" replace />;
+  const courageRestored = progress.restoredRegionIds.includes("mountain-of-echoes");
+  const regions = [
+    { id: "mountain-of-echoes" as const, name: "Mountain of Echoes", virtue: "courage" as const, icon: Compass },
+    { id: "whispering-woods" as const, name: "Whispering Woods", virtue: "kindness" as const, icon: Trees },
+    { id: "bridge-of-falling-stars" as const, name: "Bridge of Falling Stars", virtue: "perseverance" as const, icon: Star },
+  ];
   return (
-    <main className="kai-map" aria-labelledby="map-heading">
+    <main className={courageRestored ? "kai-map is-restored" : "kai-map"} aria-labelledby="map-heading">
       <div className="kai-map__art"><KaiWorldArt variant="map" /></div>
       <header className="kai-map__header">
         <p className="kai-eyebrow">The light is waiting</p>
         <h1 id="map-heading" tabIndex={-1}>Choose a path</h1>
       </header>
       <nav className="kai-region-nav" aria-label="Adventure regions">
-        <Link className="kai-region kai-region--courage" to="/quest/mountain-of-echoes/arrival">
-          <Compass aria-hidden="true" /><span><strong>Mountain of Echoes</strong><small>Courage · Enter region</small></span><ChevronRight aria-hidden="true" />
-        </Link>
-        <button className="kai-region kai-region--sleeping" type="button" disabled>
-          <Trees aria-hidden="true" /><span><strong>Whispering Woods</strong><small>Sleeping · restore Courage first</small></span><LockKeyhole aria-hidden="true" />
-        </button>
-        <button className="kai-region kai-region--sleeping" type="button" disabled>
-          <Star aria-hidden="true" /><span><strong>Bridge of Falling Stars</strong><small>Sleeping · restore Courage first</small></span><LockKeyhole aria-hidden="true" />
-        </button>
+        {regions.map((region) => {
+          const restored = progress.restoredRegionIds.includes(region.id);
+          const sleeping = region.virtue !== "courage" && !courageRestored;
+          const questId = progress.selectedQuestIds[region.id];
+          const missionAccepted = questId ? progress.missions[questId]?.status === "accepted" : false;
+          const active = progress.activeRun?.questId === questId ? progress.activeRun : null;
+          const destination = restored ? `/reward/${region.id}` : missionAccepted ? `/mission/${region.id}` : active ? `/quest/${region.id}/${active.sceneId}` : `/quest/${region.id}/arrival`;
+          const status = restored ? "Restored · inspect region" : missionAccepted ? "Mission accepted · return" : sleeping ? "Sleeping · restore Courage first" : "Enter region";
+          const Icon = region.icon;
+          if (sleeping) return <button className="kai-region kai-region--sleeping" type="button" disabled key={region.id}><Icon aria-hidden="true" /><span><strong>{region.name}</strong><small>{status}</small></span><LockKeyhole aria-hidden="true" /></button>;
+          return <Link className={`kai-region kai-region--${region.virtue} ${restored ? "is-restored" : ""}`} to={destination} key={region.id}><Icon aria-hidden="true" /><span><strong>{region.name}</strong><small>{virtueLexicon.label(region.virtue)} · {status}</small></span>{restored ? <Check aria-hidden="true" /> : <ChevronRight aria-hidden="true" />}</Link>;
+        })}
       </nav>
       <div className="kai-map__utilities">
         <Link className="kai-button kai-button--quiet" to="/collection"><Sparkles aria-hidden="true" /> Collection</Link>

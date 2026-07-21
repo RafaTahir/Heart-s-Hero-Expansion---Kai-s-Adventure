@@ -399,6 +399,21 @@
     box-shadow: 0 0 0 4px rgba(255, 198, 92, 0.12), 0 12px 36px rgba(20, 35, 51, 0.32);
   }
 
+  .kai-map.is-restored {
+    --kai-sky: #70b8cf;
+    --kai-ground: #247f73;
+    --kai-path: #ffe29a;
+    --kai-crystal: #9cf4ee;
+  }
+
+  .kai-region.is-restored {
+    border-color: #8ce2bd;
+    background: rgba(24, 82, 70, 0.92);
+  }
+
+  .kai-region--kindness > svg { color: #8ce2bd; }
+  .kai-region--perseverance > svg { color: #b8c9ff; }
+
   .kai-region--sleeping {
     opacity: 0.78;
     cursor: not-allowed;
@@ -410,6 +425,231 @@
     bottom: max(1rem, env(safe-area-inset-bottom));
     left: max(1rem, env(safe-area-inset-left));
     justify-content: space-between;
+  }
+
+  .kai-loading {
+    display: grid;
+    min-height: 100dvh;
+    place-content: center;
+    justify-items: center;
+    gap: 0.75rem;
+    background: var(--kai-ink);
+    color: var(--kai-cream);
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+
+  .kai-loading svg {
+    width: 3rem;
+    height: 3rem;
+    color: var(--kai-sunrise);
+    animation: compass-find 1.8s ease-in-out infinite;
+  }
+
+  @keyframes compass-find {
+    0%, 100% { rotate: -10deg; }
+    50% { rotate: 18deg; }
+  }
+
+  .kai-region-art,
+  .kai-mission-art,
+  .kai-reward-art,
+  .kai-collection-art {
+    position: absolute;
+    inset: 0;
+  }
+
+  .kai-region-art__veil {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 35, 51, 0.14);
+  }
+
+  .kai-region-art--mountain-of-echoes { --kai-sky: #657f8e; --kai-ground: #294b54; }
+  .kai-region-art--whispering-woods { --kai-sky: #668f83; --kai-ground: #183f3c; --kai-crystal: #8ce2bd; }
+  .kai-region-art--bridge-of-falling-stars { --kai-sky: #344f91; --kai-ground: #1c305c; --kai-crystal: #c8d5ff; }
+  .kai-region-art.is-restored { --kai-sky: #78bfd0; --kai-ground: #247f73; --kai-path: #ffe29a; --kai-crystal: #9cf4ee; }
+
+  .kai-scene-choices {
+    display: grid;
+    gap: 0.75rem;
+    width: min(100%, 36rem);
+    margin: 1.25rem auto 0;
+  }
+
+  .kai-choice-button {
+    display: flex;
+    min-height: 3.5rem;
+    align-items: center;
+    gap: 0.8rem;
+    border: 2px solid rgba(255, 241, 199, 0.68);
+    border-radius: 1rem 1.35rem 0.9rem 1.2rem;
+    background: rgba(20, 35, 51, 0.88);
+    color: var(--kai-cream);
+    padding: 0.8rem 1rem;
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-align: left;
+    transition: transform 120ms ease, border-color 120ms ease, background-color 120ms ease;
+  }
+
+  .kai-choice-button:hover:not(:disabled) {
+    border-color: var(--kai-sunrise);
+    transform: translateY(-2px);
+  }
+
+  .kai-choice-button:disabled { opacity: 0.65; }
+  .kai-choice-button svg { flex: 0 0 auto; color: var(--kai-sunrise); }
+
+  .kai-back-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+    color: #e6eadf;
+    font-weight: 800;
+  }
+
+  .kai-mission-copy {
+    width: min(100%, 38rem);
+    margin: 1rem auto 0;
+    border-left: 5px solid var(--kai-sunrise);
+    background: rgba(20, 35, 51, 0.78);
+    padding: 1rem 1.1rem;
+    color: var(--kai-cream);
+    font-size: clamp(1.1rem, 2.8vw, 1.45rem);
+    font-weight: 800;
+    line-height: 1.45;
+    text-align: left;
+  }
+
+  .kai-mission-object {
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    display: grid;
+    width: 8rem;
+    height: 8rem;
+    place-items: center;
+    translate: -50% -50%;
+    border: 8px double #7e5c36;
+    border-radius: 50%;
+    background: #fff1c7;
+    box-shadow: 0 0 50px rgba(255, 198, 92, 0.58);
+    color: #a65135;
+  }
+
+  .kai-mission-object svg { width: 4rem; height: 4rem; }
+  .kai-status-line { min-height: 1.5rem; margin: 0.8rem 0 0; color: #ffe29a; font-weight: 800; }
+
+  .kai-transformation {
+    position: relative;
+    min-height: 100dvh;
+    overflow: hidden;
+    background: var(--kai-ink);
+    isolation: isolate;
+  }
+
+  .kai-transform-art { position: absolute; inset: 0; z-index: -1; }
+  .kai-transform-copy {
+    position: absolute;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+    left: max(1rem, env(safe-area-inset-left));
+    text-align: center;
+  }
+
+  .kai-transform-copy h1 { font-size: clamp(2.2rem, 7vw, 4.8rem); }
+  .kai-light-trail,
+  .kai-echo-rings,
+  .kai-sunrise-disc,
+  .kai-crystal-field,
+  .kai-compass-awake,
+  .kai-reward-reveal { position: absolute; opacity: 0; transition: opacity 380ms ease, transform 430ms ease; }
+
+  .kai-light-trail {
+    top: 56%; left: 23%; width: 54%; height: 18%;
+    border-top: 8px solid #ffc65c;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 12px #ffc65c);
+    transform: scaleX(0); transform-origin: left;
+  }
+
+  [data-phase="1"] .kai-light-trail,
+  [data-phase="2"] .kai-light-trail,
+  [data-phase="3"] .kai-light-trail,
+  [data-phase="4"] .kai-light-trail,
+  [data-phase="5"] .kai-light-trail,
+  [data-phase="6"] .kai-light-trail { opacity: 1; transform: scaleX(1); }
+
+  .kai-echo-rings { top: 30%; left: 49%; width: 20rem; height: 20rem; border: 10px double #b7d0d4; border-radius: 50%; transform: translate(-50%, -50%) scale(1.5); }
+  [data-phase="2"] .kai-echo-rings { opacity: .2; transform: translate(-50%, -50%) scale(.4); }
+  .kai-sunrise-disc { top: 9%; left: 50%; width: 14rem; height: 14rem; border-radius: 50%; background: #ffc65c; box-shadow: 0 0 100px #ffc65c; transform: translate(-50%, 50%); }
+  [data-phase="3"] .kai-sunrise-disc,
+  [data-phase="4"] .kai-sunrise-disc,
+  [data-phase="5"] .kai-sunrise-disc,
+  [data-phase="6"] .kai-sunrise-disc { opacity: .86; transform: translate(-50%, 0); }
+
+  .kai-crystal-field { top: 36%; left: 50%; display: flex; gap: 1rem; transform: translate(-50%, 2rem); }
+  .kai-crystal-field i { display: block; width: 2rem; height: 6rem; background: #72d7d4; clip-path: polygon(50% 0, 100% 28%, 72% 100%, 20% 100%, 0 28%); box-shadow: 0 0 30px #72d7d4; }
+  [data-phase="4"] .kai-crystal-field,
+  [data-phase="5"] .kai-crystal-field,
+  [data-phase="6"] .kai-crystal-field { opacity: 1; transform: translate(-50%, 0); }
+
+  .kai-compass-awake,
+  .kai-reward-reveal { top: 48%; left: 50%; display: grid; width: 7rem; height: 7rem; place-items: center; translate: -50% -50%; border-radius: 50%; background: #fff1c7; color: #a65135; transform: scale(.35) rotate(-35deg); }
+  .kai-compass-awake svg,
+  .kai-reward-reveal svg { width: 4rem; height: 4rem; }
+  [data-phase="5"] .kai-compass-awake { opacity: 1; transform: scale(1) rotate(0); }
+  [data-phase="6"] .kai-compass-awake { opacity: 0; }
+  [data-phase="6"] .kai-reward-reveal { opacity: 1; transform: scale(1) rotate(0); box-shadow: 0 0 90px #ffc65c; }
+
+  .kai-reward-art > svg:last-child {
+    position: absolute;
+    top: 36%;
+    left: 50%;
+    width: 9rem;
+    height: 9rem;
+    translate: -50% -50%;
+    color: #ffe29a;
+    filter: drop-shadow(0 0 30px #ffc65c);
+  }
+
+  .kai-collection-list {
+    display: grid;
+    gap: 0.65rem;
+    margin: 1rem 0;
+  }
+
+  .kai-treasure {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem;
+    align-items: center;
+    border: 2px dashed rgba(255, 241, 199, 0.42);
+    border-radius: 1rem;
+    background: rgba(20, 35, 51, 0.72);
+    color: #d5ded9;
+    padding: 0.75rem;
+    text-align: left;
+  }
+
+  .kai-treasure.is-found { border-style: solid; border-color: #ffc65c; color: var(--kai-cream); }
+  .kai-treasure svg { width: 2.5rem; height: 2.5rem; color: #ffc65c; }
+  .kai-treasure h2 { font-size: 1.1rem; letter-spacing: 0; }
+  .kai-treasure p, .kai-treasure small { margin: 0.1rem 0 0; display: block; }
+  .kai-reflections { margin: 1rem auto; max-width: 42rem; }
+  .kai-reflections p { border-left: 5px solid var(--kai-sunrise); background: rgba(20, 35, 51, .76); padding: .8rem 1rem; text-align: left; }
+  .kai-button--danger { border-color: #ffb5a5; background: #8b302d; color: #fff7ec; }
+
+  @media (min-width: 48rem) {
+    .kai-scene-choices { grid-template-columns: repeat(2, 1fr); margin-left: 0; }
+    .kai-mission-copy { margin-left: 0; }
+    .kai-transform-copy { left: max(3rem, 8vw); width: min(42rem, 55vw); text-align: left; }
+    .kai-transform-copy .kai-caption { margin-left: 0; }
+    .kai-transform-copy .kai-actions { justify-content: flex-start; }
+    .kai-collection-list { grid-template-columns: repeat(3, 1fr); }
   }
 
   @media (min-width: 48rem) {
