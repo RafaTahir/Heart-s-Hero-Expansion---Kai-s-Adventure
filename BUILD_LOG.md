@@ -165,7 +165,7 @@ Rafa established and approved:
 ## Phase 2 — Kai visual world and design system
 
 **Date:** 2026-07-22
-**Status:** Verified; primary commit pending
+**Status:** Verified and pushed
 
 ### Work completed
 
@@ -193,7 +193,7 @@ Rafa established and approved:
 
 ### Commits
 
-- Primary commit SHA: pending.
+- Primary commit SHA: `45668d0317a72a3b4ab793d773e824791369ce5f`.
 - SHA-record commit SHA: reported to Rafa; not recursively recorded.
 
 ### Deployment
