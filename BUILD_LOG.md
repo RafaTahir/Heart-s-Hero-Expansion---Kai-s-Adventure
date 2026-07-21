@@ -304,7 +304,7 @@ Rafa established and approved:
 ## Phase 5 — Kindness and Perseverance regions
 
 **Date:** 2026-07-22
-**Status:** Verified; primary commit pending
+**Status:** Verified and pushed
 
 ### Work completed
 
@@ -330,7 +330,7 @@ Rafa established and approved:
 
 ### Commits
 
-- Primary commit SHA: pending.
+- Primary commit SHA: `6c76806d25bd232db0382c09f2eee2c91ce4520c`.
 - SHA-record commit SHA: reported to Rafa; not recursively recorded.
 
 ### Deployment
