@@ -118,7 +118,7 @@ Rafa established and approved:
 ## Phase 1 — Standalone scaffold
 
 **Date:** 2026-07-22
-**Status:** Verified; primary commit pending
+**Status:** Verified and pushed
 
 ### Work completed
 
@@ -145,7 +145,7 @@ Rafa established and approved:
 
 ### Commits
 
-- Primary commit SHA: pending.
+- Primary commit SHA: `fdc838458c05d732fdfb5e2365887862a35c81db`.
 - SHA-record commit SHA: reported to Rafa; not recursively recorded.
 
 ### Deployment
