@@ -162,6 +162,53 @@ Rafa established and approved:
 - The placeholder is intentionally not a playable scene.
 - Next allowed work: scoped visual system, opening/setup/map compositions, and original Kai/Pip/world SVGs.
 
+## Phase 2 — Kai visual world and design system
+
+**Date:** 2026-07-22
+**Status:** Verified; primary commit pending
+
+### Work completed
+
+- Added scoped `--kai-*` scene tokens, locally bundled type, story shelves, carved controls, setup fields, responsive layouts, and reduced-motion rules.
+- Drew original semantic layered SVG art for Kai, silent light-fox Pip, camp, mountain, forest, bridge, compass, stars, and world map.
+- Implemented the opening, grown-up setup, and map compositions with three visible region states.
+- Added `brand.md` as the implementation reference for color, type, shape, motion, and voice.
+
+### Human decisions
+
+- Existing approved visual specification supplied the brand direction; no new product decisions were required.
+
+### Codex work
+
+- Implemented and visually inspected the 1280 px map composition in Chromium.
+
+### Verification
+
+- `npm run typecheck`: pass.
+- `npm run lint`: pass.
+- `npm run test`: pass.
+- `npm run test:e2e`: pass.
+- `npm run build`: pass.
+- Visual inspection: pass at desktop; no overlap, clipped primary controls, or illegible state labels.
+
+### Commits
+
+- Primary commit SHA: pending.
+- SHA-record commit SHA: reported to Rafa; not recursively recorded.
+
+### Deployment
+
+- Static output remains Vercel-ready; public deployment credentials remain unavailable locally.
+
+### Evidence
+
+- Chromium map screenshot captured outside the repository for later judging evidence curation.
+
+### Known issues and next allowed work
+
+- Setup selections are intentionally not persistent until the engine phase.
+- Next allowed work: portable quest types, validation, selection, reducer, storage, migrations, and content packs.
+
 ## Phase entry template
 
 Copy this section for every later phase.

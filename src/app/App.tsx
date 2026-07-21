@@ -4,8 +4,10 @@ import { KaiAdventureRoutes } from "@/features/kai-adventure";
 
 export function App() {
   return (
-    <Routes>
-      <Route path="/*" element={<KaiAdventureRoutes />} />
-    </Routes>
+    <div className="kai-adventure">
+      <Routes>
+        <Route path="/*" element={<KaiAdventureRoutes />} />
+      </Routes>
+    </div>
   );
 }
