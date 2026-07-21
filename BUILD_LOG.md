@@ -348,7 +348,7 @@ Rafa established and approved:
 ## Phase 6 — Responsive, accessibility, and performance polish
 
 **Date:** 2026-07-22
-**Status:** Verified; primary commit pending
+**Status:** Verified and pushed
 
 ### Work completed
 
@@ -376,7 +376,7 @@ Rafa established and approved:
 
 ### Commits
 
-- Primary commit SHA: pending.
+- Primary commit SHA: `f04dcdc1b91e31bb9f9d574b635414e4930fb507`.
 - SHA-record commit SHA: reported to Rafa; not recursively recorded.
 
 ### Deployment
