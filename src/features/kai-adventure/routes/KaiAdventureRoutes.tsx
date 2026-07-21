@@ -1,9 +1,17 @@
+import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AdventureProvider } from "../engine/AdventureContext";
 import type { KaiAdventureRoutesProps } from "../engine/types";
-import { CollectionScreen, GrownUpScreen, MissionScreen, QuestScreen, ResetScreen, RewardScreen, TransformationScreen } from "../screens/AdventureScreens";
 import { MapScreen, OpeningScreen, SetupScreen } from "../screens/VisualFoundation";
+
+const QuestScreen = lazy(() => import("../screens/AdventureScreens").then((module) => ({ default: module.QuestScreen })));
+const MissionScreen = lazy(() => import("../screens/AdventureScreens").then((module) => ({ default: module.MissionScreen })));
+const TransformationScreen = lazy(() => import("../screens/AdventureScreens").then((module) => ({ default: module.TransformationScreen })));
+const RewardScreen = lazy(() => import("../screens/AdventureScreens").then((module) => ({ default: module.RewardScreen })));
+const CollectionScreen = lazy(() => import("../screens/AdventureScreens").then((module) => ({ default: module.CollectionScreen })));
+const GrownUpScreen = lazy(() => import("../screens/AdventureScreens").then((module) => ({ default: module.GrownUpScreen })));
+const ResetScreen = lazy(() => import("../screens/AdventureScreens").then((module) => ({ default: module.ResetScreen })));
 
 export function KaiAdventureRoutes({ basePath = "", storage, questSource, virtueLexicon }: KaiAdventureRoutesProps) {
   const prefix = basePath.replace(/^\/+|\/+$/g, "");
@@ -11,6 +19,7 @@ export function KaiAdventureRoutes({ basePath = "", storage, questSource, virtue
 
   return (
     <AdventureProvider storage={storage} questSource={questSource} virtueLexicon={virtueLexicon}>
+      <Suspense fallback={<main className="kai-loading" aria-live="polite"><p>Opening the next page…</p></main>}>
       <Routes>
         <Route path={at("")} element={<OpeningScreen />} />
         <Route path={at("setup")} element={<SetupScreen />} />
@@ -24,6 +33,7 @@ export function KaiAdventureRoutes({ basePath = "", storage, questSource, virtue
         <Route path={at("reset")} element={<ResetScreen />} />
         <Route path="*" element={<Navigate to={prefix ? `/${prefix}` : "/"} replace />} />
       </Routes>
+      </Suspense>
     </AdventureProvider>
   );
 }

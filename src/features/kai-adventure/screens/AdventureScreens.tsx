@@ -233,12 +233,16 @@ export function GrownUpScreen() {
 export function ResetScreen() {
   const navigate = useNavigate();
   const { reset } = useAdventure();
+  const confirmReset = async () => {
+    await reset();
+    navigate("/", { replace: true });
+  };
   return (
     <SceneFrame title="Reset this adventure?" eyebrow="Grown-up confirmation" art={<KaiWorldArt variant="map" />}>
       <p className="kai-caption">This removes setup, missions, restored regions, and collectibles from this device. Other site data stays untouched.</p>
       <div className="kai-actions">
         <button className="kai-button kai-button--quiet" type="button" onClick={() => navigate(-1)}>Cancel</button>
-        <button className="kai-button kai-button--danger" type="button" onClick={() => void reset()}>Reset adventure</button>
+        <button className="kai-button kai-button--danger" type="button" onClick={() => void confirmReset()}>Reset adventure</button>
       </div>
     </SceneFrame>
   );

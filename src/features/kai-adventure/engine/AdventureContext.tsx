@@ -42,11 +42,12 @@ export function AdventureProvider({ storage, questSource, virtueLexicon, childre
 
   const reset = useCallback(async () => {
     await storage.clear();
-    window.location.assign("/");
+    baseDispatch({ type: "hydrated", progress: initialProgress });
+    setNotice("Kai's Adventure was reset. A fresh adventure is ready.");
   }, [storage]);
 
   const value = useMemo(() => ({ progress, ready, notice, questSource, virtueLexicon, dispatch, reset }), [progress, ready, notice, questSource, virtueLexicon, dispatch, reset]);
-  return <AdventureContext.Provider value={value}>{children}</AdventureContext.Provider>;
+  return <AdventureContext.Provider value={value}><p className="sr-only" role="status" aria-live="polite">{notice}</p>{children}</AdventureContext.Provider>;
 }
 
 // Context hook intentionally shares this component module to keep the provider boundary private.

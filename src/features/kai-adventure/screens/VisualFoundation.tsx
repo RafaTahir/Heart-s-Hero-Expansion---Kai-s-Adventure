@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { BookOpen, Check, ChevronRight, Compass, LockKeyhole, Sparkles, Star, Trees } from "lucide-react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
@@ -43,6 +43,12 @@ export function SetupScreen() {
   const [challenge, setChallenge] = useState("");
   const [length, setLength] = useState("");
   const [error, setError] = useState("");
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    document.title = "Set the first trail · Kai's Adventure";
+    headingRef.current?.focus({ preventScroll: true });
+  }, []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -68,7 +74,7 @@ export function SetupScreen() {
       <div className="kai-scene__art"><KaiWorldArt variant="camp" /></div>
       <section className="kai-journal" aria-labelledby="setup-heading">
         <p className="kai-eyebrow">Grown-up setup · about one minute</p>
-        <h1 id="setup-heading">Set the first trail</h1>
+        <h1 id="setup-heading" ref={headingRef} tabIndex={-1}>Set the first trail</h1>
         <p>Choose what fits today. Nothing here is a test, and there are no timers.</p>
         <form onSubmit={(event) => void submit(event)} noValidate>
           <ChoiceGroup legend="How old is your explorer?" name="age" value={age} onChange={setAge} choices={ageChoices} />
@@ -110,6 +116,11 @@ function ChoiceGroup({ legend, name, value, onChange, choices, columns }: Choice
 
 export function MapScreen() {
   const { progress, ready, virtueLexicon } = useAdventure();
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    document.title = "Choose a path · Kai's Adventure";
+    if (ready) headingRef.current?.focus({ preventScroll: true });
+  }, [ready]);
   if (!ready) return <main className="kai-loading" aria-live="polite"><Compass aria-hidden="true" /><p>Finding your trail…</p></main>;
   if (!progress.setup) return <Navigate to="/setup" replace />;
   const courageRestored = progress.restoredRegionIds.includes("mountain-of-echoes");
@@ -124,7 +135,7 @@ export function MapScreen() {
       <div className="kai-map__art"><KaiWorldArt variant="map" /></div>
       <header className="kai-map__header">
         <p className="kai-eyebrow">The light is waiting</p>
-        <h1 id="map-heading" tabIndex={-1}>Choose a path</h1>
+        <h1 id="map-heading" ref={headingRef} tabIndex={-1}>Choose a path</h1>
       </header>
       <nav className="kai-region-nav" aria-label="Adventure regions">
         {regions.map((region) => {
