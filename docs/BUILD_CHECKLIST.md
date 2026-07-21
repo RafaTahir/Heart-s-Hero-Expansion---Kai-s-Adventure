@@ -56,9 +56,9 @@ Use this checklist in order. Do not begin a phase until the prior phase's verifi
 - [x] Confirm Vercel build/output/rewrite behavior is documented.
 - [x] Confirm Supabase, authentication, backend services, secrets, and runtime AI appear only as exclusions or parent findings.
 - [x] Confirm application files and dependencies have not been created.
-- [ ] Complete the phase gate: primary commit `docs: define Kai's Adventure product and build plan`.
-- [ ] Complete the SHA-record commit `docs: record planning commit`.
-- [ ] Report both planning SHAs to Rafa.
+- [x] Complete the phase gate: primary commit `docs: define Kai's Adventure product and build plan`.
+- [x] Complete the SHA-record commit `docs: record planning commit`.
+- [x] Report both planning SHAs to Rafa.
 
 ## Phase 1 — Standalone scaffold
 

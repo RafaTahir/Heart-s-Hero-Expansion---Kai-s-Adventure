@@ -107,7 +107,7 @@ After the hackathon, the portable interfaces may support account-backed persiste
 - [x] Technical architecture
 - [x] Sequenced delivery and test planning
 - [x] Integration and hackathon evidence planning
-- [ ] Planning package verification and push
+- [x] Planning package verification and push
 - [ ] Application scaffold
 - [ ] Working product
 - [ ] Public deployment

@@ -77,7 +77,7 @@ Rafa established and approved:
 ## Phase 0 — Planning package
 
 **Date:** 2026-07-22
-**Status:** Verified; commits pending
+**Status:** Verified and pushed
 
 ### Work completed
 
@@ -103,7 +103,7 @@ Rafa established and approved:
 
 ### Commits
 
-- Primary planning commit SHA: `PENDING`
+- Primary planning commit SHA: `d87221b08054b5c6bead01b0b0d1d1e3b6b822e5`
 - SHA-record commit SHA: recorded in the Rafa-facing phase report; not recursively entered here.
 
 ### Deployment
