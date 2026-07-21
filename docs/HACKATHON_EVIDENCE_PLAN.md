@@ -183,21 +183,21 @@ Retest the production URL immediately before submission and after any final docu
 
 ## 10. Submission checklist
 
-- [ ] Education category and family problem are stated clearly.
+- [x] Education category and family problem are stated clearly.
 - [ ] Public Vercel URL opens without login.
-- [ ] Courage can be completed from a clean device without assistance.
-- [ ] `/reset` is obvious and works for judges.
-- [ ] All three regions and rewards are functional.
-- [ ] README install/test/build instructions pass from a clean checkout.
-- [ ] Build log contains every primary phase SHA and verification result.
-- [ ] Commit history demonstrates incremental Build Week work.
-- [ ] Target was empty before planning; Heart Hero is identified as pre-existing reference only.
-- [ ] Codex and GPT-5.6 contributions are accurate and supported by evidence.
-- [ ] No runtime GPT-5.6/OpenAI API claim appears.
-- [ ] Dependency and network review confirms zero runtime AI/backend/auth/secrets.
-- [ ] Original SVG and font/license notes are complete.
-- [ ] Before/after, responsive, reduced-motion, focus, and collection screenshots are included.
+- [x] Courage can be completed from a clean device without assistance.
+- [x] `/reset` is obvious and works for judges.
+- [x] All three regions and rewards are functional.
+- [x] README install/test/build instructions pass from a clean checkout.
+- [x] Build log contains every primary phase SHA and verification result.
+- [x] Commit history demonstrates incremental Build Week work.
+- [x] Target was empty before planning; Heart Hero is identified as pre-existing reference only.
+- [x] Codex and GPT-5.6 contributions are accurate and supported by evidence.
+- [x] No runtime GPT-5.6/OpenAI API claim appears.
+- [x] Dependency and network review confirms zero runtime AI/backend/auth/secrets.
+- [x] Original SVG and font/license notes are complete.
+- [x] Before/after, responsive, reduced-motion, focus, and collection screenshots are included.
 - [ ] Demo video is captioned, concise, rights-safe, and matches the deployed build.
 - [ ] `/feedback` findings and responses are recorded.
 - [ ] Accessibility, e2e, production build, and Vercel smoke checks pass.
-- [ ] Submission text does not claim unimplemented roadmap features.
+- [x] Submission text does not claim unimplemented roadmap features.

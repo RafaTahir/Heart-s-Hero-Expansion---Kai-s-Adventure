@@ -1,118 +1,107 @@
 # Kai's Adventure
 
-> **Build in progress:** the strict application shell, automated test harness, CI workflow, and Vercel SPA configuration are in place. The playable illustrated journey is being built phase by phase.
+**A visual-first storybook game where children help Kai and his silent light-fox Pip restore a fading world by practising Courage, Kindness, and Perseverance in real life.**
 
-**Kai's Adventure — A Heart Hero Expansion** is a planned visual-first interactive storybook game for children aged 6–11. Children help Kai, a nine-year-old explorer, and Pip, his magical light-fox companion, restore a fading fantasy world by practising Courage, Kindness, and Perseverance in real life.
+Abstract values are hard to feel. Kai's Adventure gives one small real-world action an immediate, legible consequence: the story world changes, a region returns to life, and the child keeps a named treasure.
 
-> Children do not simply learn virtues. They help Kai restore a living world by practising them.
-
-## Planning documents
-
-- [Product requirements](docs/PRODUCT_REQUIREMENTS.md)
-- [Visual UX specification](docs/VISUAL_UX_SPEC.md)
-- [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
-- [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
-- [Build checklist](docs/BUILD_CHECKLIST.md)
-- [Heart Hero integration plan](docs/HEART_HERO_INTEGRATION_PLAN.md)
-- [Hackathon evidence plan](docs/HACKATHON_EVIDENCE_PLAN.md)
-- [Build log](BUILD_LOG.md)
-
-## Project overview
-
-_To be updated after implementation._
-
-The planned MVP contains three regions and a complete loop of visual discovery, expressive choice, real-world mission, return, environmental transformation, and collectible reward. The Mountain of Echoes/Courage journey is the showcase vertical slice.
+![Restored three-region map](docs/evidence/map-restored-1280.png)
 
 ## Demo
 
-The local shell is available now. A public Vercel URL will be added after deployment credentials are available and the build is verified there.
+The complete product builds and runs locally. The public Vercel URL is pending repository-owner authentication and project connection; no deployment URL is claimed until it is smoke-tested.
 
-The future public Vercel URL, demo video, judge reset route, and screenshot evidence will be added only after they are verified.
+For a clean judge run, open `/reset`, confirm, then begin at `/`. The scripted 100–130 second recording path is in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md), and honest readiness/blocker status is in [docs/JUDGING_STATUS.md](docs/JUDGING_STATUS.md).
 
-## Features
+## What is built
 
-_Planned, not yet implemented:_
+- A complete Courage showcase: opening → grown-up setup → map → two expressive choices → real-world mission → persisted return → six-beat restoration → Courage Compass → collection/reflection/reset.
+- Complete shorter Kindness and Perseverance journeys with distinct transformations, rewards, and prompts.
+- Courage-first map progression: two visibly sleeping regions unlock together after the Mountain is restored.
+- Quick Quest and Three-Day framing over the same content graph, with no time gate.
+- Original layered SVG artwork for Kai, Pip, the three-region world, camp, compass, crystals, paths, and restoration effects.
+- Versioned local persistence, deterministic quest selection, explicit migration, corrupt-data backup/recovery, idempotent rewards, and reset limited to `heart-hero:kai-adventure:*` keys.
+- Keyboard/touch operation, visible focus, 44×44 px minimum targets, WCAG AA-oriented tokens, non-color state labels, polite announcements, reduced motion, and responsive 375/768/1280 layouts.
 
-- original full-screen Kai and Pip story scenes;
-- Courage, Kindness, and Perseverance quest regions;
-- real-world missions with “I'll do it” and “I did it” return flow;
-- visible faded-to-restored environmental transformations;
-- three virtue collectibles and a visual collection;
-- brief grown-up setup and reflection;
-- versioned local progress, corrupted-state recovery, and interface reset;
-- keyboard, touch, reduced-motion, mobile, tablet, and desktop support.
+## Run locally
 
-## Architecture
-
-The approved architecture is a static Vite/React/TypeScript application using Tailwind CSS, shadcn/Radix primitives, React Router, structured local quest packs, a pure reducer, and an injected storage adapter. The portable feature will live under `src/features/kai-adventure` behind a thin standalone shell.
-
-The deployed MVP will use **no OpenAI API, runtime AI, Supabase, backend, authentication, external database, API key, secret, or runtime-generated image**.
-
-See [Technical Architecture](docs/TECHNICAL_ARCHITECTURE.md) for the full design.
-
-## Running locally
-
-Use Node.js 22 and the committed npm lockfile:
+Node.js 22 and npm 11 were used for the verified build.
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Quality gates are `npm run typecheck`, `npm run lint`, `npm run test`, `npm run test:e2e`, and `npm run build`.
+Open the local URL printed by Vite. Production verification:
+
+```bash
+npm run typecheck
+npm run lint
+npm run test
+npm run build
+npm run test:e2e
+```
+
+Playwright requires Chromium once per machine: `npx playwright install chromium`.
+
+## Architecture
+
+The standalone shell is Vite 5 + React 18 + strict TypeScript 5 + Tailwind 3 + React Router 6. Quest packs live in structured TypeScript outside components and are validated with Zod. Progression is a pure reducer; selection is deterministic by region, challenge match, priority, then quest ID.
+
+The portable feature exports `KaiAdventureRoutes` plus stable `StorageAdapter`, `QuestSource`, and `VirtueLexicon` boundaries. A configurable base path supports future mounting without changing engine logic. Adventure screens lazy-load as a separate production chunk.
+
+There is **no OpenAI SDK/API, runtime AI, Supabase, backend function, authentication, external database, environment variable, API key, secret, analytics, or runtime image generation**.
+
+Full design details: [technical architecture](docs/TECHNICAL_ARCHITECTURE.md) and [Heart Hero integration plan](docs/HEART_HERO_INTEGRATION_PLAN.md).
 
 ## Deployment
 
-_Not deployed during the planning phase._
+Vercel configuration is committed for a static Vite SPA:
 
-The intended target is a public static Vite deployment on Vercel, built with `npm run build` into `dist`, with a documented SPA rewrite for direct route refreshes and no environment variables.
+- install: `npm ci`;
+- build: `npm run build`;
+- output: `dist`;
+- deep routes: `vercel.json` rewrites all requests to `index.html`;
+- environment variables: none.
 
-## Testing instructions
+Local production-like refresh checks pass for all public routes. The final owner action is to import the GitHub repository into Vercel, deploy `main`, and add the verified URL here.
 
-_Not available until the scaffold phase._
+## Testing and accessibility
 
-The approved test strategy includes strict typechecking, ESLint, Vitest/Testing Library, Playwright end-to-end journeys, axe accessibility scans, responsive screenshots, storage migration/recovery tests, and Vercel smoke checks.
+Vitest covers pack validation, deterministic selection, reducer idempotence, known migration, malformed/future storage recovery, and scoped reset. Playwright covers:
 
-## Accessibility
+- the complete Courage journey with reload after mission acceptance;
+- all three restored regions and all three rewards;
+- axe scans on every major screen;
+- ten public-route direct refreshes;
+- keyboard-only setup and heading focus;
+- minimum control dimensions;
+- immediate reduced-motion restoration;
+- 375, 768, and 1280 px responsive layouts and screenshots.
 
-The specification requires WCAG AA contrast, semantic controls, 44×44 px touch targets, logical keyboard navigation, visible focus, non-color state cues, labelled SVG scenes, live announcements, browser zoom, reduced motion, and responsive layouts at 375, 768, and 1280 px.
+The current gate is 5 unit/component tests and 5 browser tests, all passing. See [BUILD_LOG.md](BUILD_LOG.md) for phase-by-phase results and defects corrected along the way.
 
-See [Visual UX Specification](docs/VISUAL_UX_SPEC.md) for the enforceable interaction and visual rules.
+## Evidence
 
-## How Codex was used
+Judge-facing screenshots live in [docs/evidence](docs/evidence). The planning package, evidence plan, demo script, and judging status are all in [docs](docs).
 
-During planning, Codex inspected the empty target repository and the existing Heart Hero compatibility reference, then produced the requirements, UX, architecture, phased implementation, checklist, integration, evidence, and build-log documents under Rafa's direction.
+## Build Week provenance
 
-Later phase descriptions will record only work actually completed and verified by Codex.
+Kai's Adventure was created as a new standalone Education project during OpenAI Build Week. The target repository was empty before the planning commit. Rafa set the vision, audience, Kai/Pip identities, virtues, regions, real-world mission model, zero-runtime-AI architecture, scope priorities, and delivery gates.
 
-## How GPT-5.6 was used
-
-GPT-5.6, through Codex, supported product reasoning, technical architecture, UX specification, risk analysis, implementation sequencing, and verification planning.
-
-GPT-5.6 is a development tool for this project. It is **not** a runtime dependency of the planned product.
-
-## Built during OpenAI Build Week
-
-Kai's Adventure is being created as a new standalone Education-category project during OpenAI Build Week. The target repository was empty at the start of planning. Phase commits and evidence will distinguish new Build Week work from the pre-existing Heart Hero application.
+Codex inspected the compatibility reference, produced the approved planning package, then implemented the original code, SVGs, quest content, tests, debugging, documentation, and evidence under Rafa's direction. GPT-5.6 was used through Codex for development reasoning and execution. **GPT-5.6 and Codex are development tools, not deployed runtime dependencies.**
 
 ## Relationship to Heart Hero
 
-The existing [`heart-hero-quest`](https://github.com/RafaTahir/heart-hero-quest) repository is a compatibility reference only and is not modified by this project. Kai uses a compatible frontend technology family but does not copy Heart Hero's Supabase/auth coupling, runtime image generation, religious terminology, global navigation, or assets.
+The pre-existing [`heart-hero-quest`](https://github.com/RafaTahir/heart-hero-quest) product was inspected read-only at commit `9d850349ef230ae51cc0a3e023196f0bf45772a7` as a technology/integration reference. It is not an earlier version of Kai's Adventure, and its assets, auth/Supabase coupling, runtime generation, global shell, and terminology were not copied.
 
-The future integration path mounts the portable feature under `heart-hero-quest/src/features/kai-adventure` and injects routing base, persistence, quest source, and virtue labels. See [Heart Hero Integration Plan](docs/HEART_HERO_INTEGRATION_PLAN.md).
+Future integration mounts this feature under `src/features/kai-adventure`, adopts the parent shell's shared primitives, injects account persistence and an alternate lexicon, and retains scoped `--kai-*` scene tokens. Quest IDs and reducer logic do not change.
 
-## Future integration and roadmap
+## Assets and licenses
 
-After the hackathon, the portable interfaces may support account-backed persistence, localization, alternative virtue labels, more regions, optional narration, and an optional validated runtime quest source. These are roadmap items, not MVP claims. Static local quests will remain supported.
+All central scene artwork is original repository-owned SVG/CSS created for this project. Fraunces and Nunito are bundled locally through Fontsource; both are open-license fonts. Lucide supplies interface icons under its ISC license. Dependency license details remain available in the npm lockfile and upstream packages.
 
-## Current status
+## MVP cuts and roadmap
 
-- [x] Repository inspection
-- [x] Product and UX planning
-- [x] Technical architecture
-- [x] Sequenced delivery and test planning
-- [x] Integration and hackathon evidence planning
-- [x] Planning package verification and push
-- [x] Application scaffold
-- [ ] Working product
-- [ ] Public deployment
+Deliberate cuts include decorative parallax, ambient particle density, narration, scoring, accounts, cloud sync, avatar customization, more regions, and bespoke copy for every age/choice combination. The complete core loop, visible restoration, persistence/reset, all three regions, mobile usability, and accessibility baseline were not cut.
+
+After the hackathon, the injected boundaries can support parent-product account persistence, localization/alternate virtue labels, optional narration, and additional validated static quest packs.

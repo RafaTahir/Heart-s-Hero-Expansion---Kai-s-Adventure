@@ -392,6 +392,56 @@ Rafa established and approved:
 - Public Vercel smoke tests await credentials and a linked project.
 - Next allowed work: judging documentation, curated evidence, `/feedback`, demo script, and submission checklist only.
 
+## Phase 7 — Judging readiness
+
+**Date:** 2026-07-22
+**Status:** Verified; primary commit pending
+
+### Work completed
+
+- Replaced planning-stage README claims with verified product, architecture, test, accessibility, provenance, asset/license, scope, and deployment information.
+- Added a concise demo script, judging-status handoff, `/feedback` record template, and nine curated judge-facing PNGs covering faded/restored, transformation, collection, responsive, reduced-motion, and focus states.
+- Added reproducible evidence capture to Playwright and reconciled the submission checklist with verified results.
+
+### Human decisions
+
+- Public deployment, production feedback, demo recording, and final submission remain owner actions because they require Rafa's Vercel/submission access.
+
+### Codex work
+
+- Curated evidence, visually inspected key frames, documented exact external blockers, and validated the README workflow with a clean `npm ci`.
+
+### Verification
+
+- `npm ci --no-audit --no-fund`: pass after stopping a local Vite process that held the generated esbuild binary.
+- `npm run typecheck`: pass.
+- `npm run lint`: pass.
+- `npm run test`: pass, 5 tests.
+- `npm run test:e2e`: pass, 5 browser tests.
+- `npm run build`: pass.
+- `git diff --check`: pass.
+- Evidence image inspection: pass for opening, complete collection, transformation midpoint, reduced-motion final state, keyboard focus, and three responsive restored maps.
+
+### Commits
+
+- Primary commit SHA: pending.
+- SHA-record commit SHA: reported to Rafa; not recursively recorded.
+
+### Deployment
+
+- Vercel token: absent.
+- Linked Vercel project: absent.
+- Public production URL and production smoke test: pending owner connection.
+
+### Evidence
+
+- `docs/evidence/*.png`, `docs/DEMO_SCRIPT.md`, `docs/JUDGING_STATUS.md`, full build log, and automated suites.
+
+### Known issues and next allowed work
+
+- External only: connect/deploy Vercel, run `/feedback` against the public URL, record the captioned demo, and submit.
+- No application defect blocks those actions.
+
 ## Phase entry template
 
 Copy this section for every later phase.
