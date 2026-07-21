@@ -115,6 +115,53 @@ Rafa established and approved:
 - Application implementation has not begun.
 - After both planning commits are pushed and reported, the next allowed phase is the standalone scaffold.
 
+## Phase 1 — Standalone scaffold
+
+**Date:** 2026-07-22
+**Status:** Verified; primary commit pending
+
+### Work completed
+
+- Added the strict Vite 5, React 18, TypeScript 5, Tailwind 3, React Router 6 application shell.
+- Added Vitest/Testing Library, Playwright, typed ESLint, CI, local fonts, the portable feature entry point, and Vercel SPA rewrite.
+- Added direct-route smoke coverage and a production placeholder with no story content.
+
+### Human decisions
+
+- Rafa authorized starting application code immediately and retained the seven gated build steps.
+
+### Codex work
+
+- Built the scaffold, resolved a generated dependency-install collision, installed the Playwright Chromium test runtime, and verified the shell.
+
+### Verification
+
+- `npm run typecheck`: pass.
+- `npm run lint`: pass.
+- `npm run test`: pass, 1 test.
+- `npm run test:e2e`: pass, Chromium deep-link smoke test.
+- `npm run build`: pass, static output created in `dist`.
+- `git diff --check`: pass.
+
+### Commits
+
+- Primary commit SHA: pending.
+- SHA-record commit SHA: reported to Rafa; not recursively recorded.
+
+### Deployment
+
+- Vercel-ready configuration: verified locally.
+- Public URL: pending; no authenticated Vercel CLI or linked project is available in this environment.
+
+### Evidence
+
+- Local command output and CI workflow are the scaffold-phase evidence.
+
+### Known issues and next allowed work
+
+- The placeholder is intentionally not a playable scene.
+- Next allowed work: scoped visual system, opening/setup/map compositions, and original Kai/Pip/world SVGs.
+
 ## Phase entry template
 
 Copy this section for every later phase.

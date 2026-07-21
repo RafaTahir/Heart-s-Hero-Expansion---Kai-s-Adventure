@@ -1,6 +1,6 @@
 # Kai's Adventure
 
-> **Planning-stage repository:** the product and delivery specifications are complete, but the application has not been scaffolded or built yet. There is no live demo in this phase.
+> **Build in progress:** the strict application shell, automated test harness, CI workflow, and Vercel SPA configuration are in place. The playable illustrated journey is being built phase by phase.
 
 **Kai's Adventure — A Heart Hero Expansion** is a planned visual-first interactive storybook game for children aged 6–11. Children help Kai, a nine-year-old explorer, and Pip, his magical light-fox companion, restore a fading fantasy world by practising Courage, Kindness, and Perseverance in real life.
 
@@ -25,7 +25,7 @@ The planned MVP contains three regions and a complete loop of visual discovery, 
 
 ## Demo
 
-_Not available during the planning phase._
+The local shell is available now. A public Vercel URL will be added after deployment credentials are available and the build is verified there.
 
 The future public Vercel URL, demo video, judge reset route, and screenshot evidence will be added only after they are verified.
 
@@ -52,9 +52,14 @@ See [Technical Architecture](docs/TECHNICAL_ARCHITECTURE.md) for the full design
 
 ## Running locally
 
-_Not available until the scaffold phase._
+Use Node.js 22 and the committed npm lockfile:
 
-Verified install, development, preview, and Node requirements will be added after the package and lockfile exist. Do not infer commands from this planning-stage repository.
+```bash
+npm ci
+npm run dev
+```
+
+Quality gates are `npm run typecheck`, `npm run lint`, `npm run test`, `npm run test:e2e`, and `npm run build`.
 
 ## Deployment
 
@@ -108,6 +113,6 @@ After the hackathon, the portable interfaces may support account-backed persiste
 - [x] Sequenced delivery and test planning
 - [x] Integration and hackathon evidence planning
 - [x] Planning package verification and push
-- [ ] Application scaffold
+- [x] Application scaffold
 - [ ] Working product
 - [ ] Public deployment

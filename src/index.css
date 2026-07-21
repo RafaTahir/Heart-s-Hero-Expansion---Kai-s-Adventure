@@ -1,0 +1,50 @@
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/700.css";
+@import "@fontsource/nunito/400.css";
+@import "@fontsource/nunito/600.css";
+@import "@fontsource/nunito/700.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 213 34% 15%;
+    --foreground: 43 65% 94%;
+    --primary: 40 92% 62%;
+    --primary-foreground: 215 39% 13%;
+    --secondary: 205 31% 24%;
+    --secondary-foreground: 43 65% 94%;
+    --muted: 210 24% 24%;
+    --muted-foreground: 42 21% 78%;
+    --border: 205 23% 38%;
+    --ring: 42 100% 72%;
+    --destructive: 4 68% 50%;
+    --destructive-foreground: 0 0% 100%;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    min-width: 320px;
+    background: hsl(var(--background));
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: "Nunito", ui-rounded, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
