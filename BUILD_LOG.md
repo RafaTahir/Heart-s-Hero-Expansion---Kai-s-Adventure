@@ -258,7 +258,7 @@ Rafa established and approved:
 ## Phase 4 — Complete Courage adventure journey
 
 **Date:** 2026-07-22
-**Status:** Verified; primary commit pending
+**Status:** Verified and pushed
 
 ### Work completed
 
@@ -284,7 +284,7 @@ Rafa established and approved:
 
 ### Commits
 
-- Primary commit SHA: pending.
+- Primary commit SHA: `1dd3fb993e5e11c187762c42f9db75e9c523791d`.
 - SHA-record commit SHA: reported to Rafa; not recursively recorded.
 
 ### Deployment
