@@ -212,7 +212,7 @@ Rafa established and approved:
 ## Phase 3 — Portable local quest engine
 
 **Date:** 2026-07-22
-**Status:** Verified; primary commit pending
+**Status:** Verified and pushed
 
 ### Work completed
 
@@ -239,7 +239,7 @@ Rafa established and approved:
 
 ### Commits
 
-- Primary commit SHA: pending.
+- Primary commit SHA: `eac2c409202044709e79ea2d2d954becd7f0f3d4`.
 - SHA-record commit SHA: reported to Rafa; not recursively recorded.
 
 ### Deployment
