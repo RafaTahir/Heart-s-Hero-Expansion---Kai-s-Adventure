@@ -395,7 +395,7 @@ Rafa established and approved:
 ## Phase 7 — Judging readiness
 
 **Date:** 2026-07-22
-**Status:** Verified; primary commit pending
+**Status:** Verified and pushed
 
 ### Work completed
 
@@ -424,7 +424,7 @@ Rafa established and approved:
 
 ### Commits
 
-- Primary commit SHA: pending.
+- Primary commit SHA: `d1957d0085ccc62f3df7b7d7ef36dce4bb9c77fd`.
 - SHA-record commit SHA: reported to Rafa; not recursively recorded.
 
 ### Deployment
